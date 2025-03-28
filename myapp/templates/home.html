@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KG Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: #f9fafb;
+            border-radius: 0.5rem;
+        }
+        .chat-message {
+            margin-bottom: 0.5rem;
+            max-width: 75%;
+            word-wrap: break-word;
+        }
+        .question {
+            background-color: #d1e7ff;
+            text-align: left;
+            align-self: flex-start;
+        }
+        .answer {
+            background-color: #e6ffe6;
+            text-align: left;
+            align-self: flex-end;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            font-size: 16px;
+            color: #555;
+        }
+        .dots::after {
+            content: '...';
+            animation: dots 1.5s steps(3, end) infinite;
+        }
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            80% { content: '..'; }
+            100% { content: '...'; }
+        }
+    </style>
+    <script>
+        function toggleDocumentInput() {
+            const checkBox = document.getElementById("uploadCheckbox");
+            const docInput = document.getElementById("documentLink");
+            docInput.style.display = checkBox.checked ? "block" : "none";
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+
+            document.getElementById('loadingIndicator').style.display = 'block';
+
+            const formData = new FormData(event.target);
+
+            fetch(event.target.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+            })
+            .then(response => {
+                document.getElementById('loadingIndicator').style.display = 'none';
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.error('Network response was not ok.');
+                    throw new Error('Network response was not ok.');
+                }
+            })
+            .then(data => {
+                appendChatMessage(data.question, data.answer);
+                document.getElementById('questionInput').value = '';
+                document.getElementById('documentInput').value = '';
+                document.getElementById('uploadCheckbox').checked = false;
+                toggleDocumentInput();
+            })
+            .catch(error => {
+                document.getElementById('loadingIndicator').style.display = 'none';
+                console.error('Fetch error:', error);
+            });
+        }
+
+        function appendChatMessage(question, answer) {
+            const chatContainer = document.getElementById('chatContainer');
+
+            const questionElement = document.createElement('div');
+            questionElement.className = 'chat-message question p-2 rounded-md shadow';
+            questionElement.textContent = question;
+
+            const answerElement = document.createElement('div');
+            answerElement.className = 'chat-message answer p-2 rounded-md shadow';
+            answerElement.innerHTML = answer;
+
+            chatContainer.appendChild(questionElement);
+            chatContainer.appendChild(answerElement);
+
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        //For selecting the option
+        function updateFormAction() {
+            const actionSelect = document.getElementById('actionSelect');
+            const form = document.querySelector('form');
+            const selectedOption = actionSelect.value;
+ 
+            // Action URL should be set correctly based on the selection
+            if (selectedOption === 'structured') {
+                form.action = "{% url 'question_view_structured' %}";
+            } else {
+                form.action = "{% url 'question_view' %}";
+            }
+        }
+ 
+        document.addEventListener("DOMContentLoaded", () => {
+            const actionSelect = document.getElementById('actionSelect');
+            actionSelect.addEventListener('change', updateFormAction);
+            updateFormAction();  // Initial update for the form action
+        });
+    </script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen py-8">
+
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-7xl">
+        <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">Knowledge Graph Engine</h2>
+
+        <!-- Chat Messages Display -->
+        <div id="chatContainer" class="chat-container space-y-2">
+            {% if answer and question %}
+            <div class="chat-message question p-2 rounded-md bg-blue-100 shadow">
+                <p>Q: {{ question }}</p>
+            </div>
+            <div class="chat-message answer p-2 rounded-md bg-green-100 shadow">
+                {% autoescape off %}
+                <p>A: {{ answer }}</p>
+                {% endautoescape %}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" class="loading">
+            Processing your query<span class="dots"></span>
+        </div>
+
+        <!-- Form Inputs -->
+        <form method="post" action="{% url 'question_view' %}" onsubmit="submitForm(event)" class="space-y-4">
+            <div>
+                <label for="actionSelect" class="block text-sm font-medium text-gray-700">Select Action Type:</label>
+                <select id="actionSelect" class="mt-1 block w-full">
+                    <option value="unstructured">Unstructured</option>
+                    <option value="structured">Structured</option>
+                </select>
+            </div>
+            
+            {% csrf_token %}
+            <div>
+                <label for="questionInput" class="block text-sm font-medium text-gray-700">Question:</label>
+                <input type="text" id="questionInput" name="question" placeholder="Enter your question" class="mt-1 block w-full" maxlength="5000" required>
+            </div>
+
+            <div class="flex justify-center">
+                <button type="submit" class="w-1/2 bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

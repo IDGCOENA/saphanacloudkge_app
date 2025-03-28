@@ -1,0 +1,4 @@
+myapp/key.py
+myapp/files/file.pdf
+venv/
+db.sqlite3
