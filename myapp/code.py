@@ -227,8 +227,6 @@ def summarize_info(question, query_response,anthropic):
 
 
 #=======================STRUCTURED DATA====================#
-
-
 def setup_structured():
     
     # set up LLM 
@@ -323,6 +321,7 @@ def extract_metadata(question: str, conn) -> List[Dict]:
         return []
     finally:
         cursor.close()
+
 
 def analyze_metadata(metadata: List[Dict], question: str, anthropic) -> Dict:
     """Analyze the metadata to identify tables, columns, and relationships"""
