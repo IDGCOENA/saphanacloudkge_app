@@ -13,6 +13,11 @@ HANA_ADMIN = ""<br>
 HANA_ADMIN_PW = ""<br>__
 
 # Install Requirements
+
+We recommend creating a virtual environment. You can find how to do so [here](https://docs.python.org/3/library/venv.html). After creating the virtual environment, install run the command 
+```bash
+pip install -r requirements.txt
+
 # Run The Django App
 # Chat With The Chatbot
 
