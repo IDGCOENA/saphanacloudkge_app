@@ -138,17 +138,17 @@ def write_query(state: State,anthropic):
     #give example in template and try different LLMs 
     template = '''Given an input question, your task is to create a syntactically correct SPARQL query to retrieve information from an RDF graph. The graph may contain variations in spacing, underscores, dashes, capitalization, reversed relationships, and word order. You must account for these variations using the `REGEX()` function in SPARQL. In the RDF graph, subjects are represented as "s", objects are represented as "o", and predicates are represented as "p". Account for underscores. 
 
-    Example Question: "Who was Marie Curie?"
+    Example Question: "What are SAP HANA Hotspots Cloud?"
     Example SPARQL Query: SELECT ?s ?p ?o
     WHERE {{
         ?s ?p ?o .
         FILTER(
-            REGEX(str(?s), "Marie_Curie", "i") ||
-            REGEX(str(?o), "Marie_Curie", "i")
+            REGEX(str(?s), "SAP_HANA_Hotspots_Cloud", "i") ||
+            REGEX(str(?o), "SAP_HANA_Hotspots_Cloud", "i")
         )
     }}
 
-    Retrieve only triplets beginning with "http://example1.org/" 
+    Retrieve only triplets beginning with "<unstructred namespace>" or <strucutured namespace>
     
     Use the following format:
     Question: {input} 
@@ -590,12 +590,10 @@ def process_question(question: str, conn, anthropic) -> str:
         
         # Step 2: Analyze the metadata and question
         components = analyze_metadata(metadata, question, anthropic)
-        print(f"Analysis components: {components}")  # Debug print
         
         # Step 3: Generate SQL query
         sql_query = generate_sql(components)
-        print(f"Generated SQL: {sql_query}")
-        
+    
         # Step 4: Execute SQL
         results = execute_sql(sql_query, conn)
         
