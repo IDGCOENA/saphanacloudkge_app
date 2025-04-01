@@ -20,6 +20,11 @@ We recommend creating a virtual environment. You can find how to do so [here](ht
 ```bash
 pip install -r requirements.txt
 ```
+
+# Change the namespaces
+
+On line 151 in myapp/code.py, add the namespaces you used for structured and unstructured data, so only those are used in retrieval.
+
 # Run The Django App
 
 In the terminal, run the command:
