@@ -10,8 +10,7 @@ HANA_PW = ""
 AZURE_OPENAI_ENDPOINT = ""
 AZURE_OPENAI_API_KEY = ""
 AWS_DEFAULT_REGION = ""
-HANA_ADMIN = ""
-HANA_ADMIN_PW = ""
+HANA_INSTANCE = ""
 ```
 
 # Install Requirements

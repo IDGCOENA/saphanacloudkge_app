@@ -112,7 +112,7 @@ def setup():
     conn = dbapi.connect(
         user = HANA_USER,
         password = HANA_PW,
-        address = ADDRESS,#nstance after crash
+        address = HANA_INSTANCE,
         port = 443,
     )
 
@@ -257,7 +257,7 @@ def setup_structured():
     conn = dbapi.connect(
         user=HANA_USER,
         password=HANA_PW,
-        address=ADDRESS,
+        address=HANA_INSTANCE,
         port=443,
     )
 
