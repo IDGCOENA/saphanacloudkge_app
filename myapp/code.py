@@ -112,7 +112,7 @@ def setup():
     conn = dbapi.connect(
         user = HANA_USER,
         password = HANA_PW,
-        address = '122ac990-1ac9-4dd0-9f92-94ce5bed0874.hna1.canary-eu10.hanacloud.ondemand.com', #New instance after crash
+        address = ADDRESS,#nstance after crash
         port = 443,
     )
 
@@ -148,7 +148,7 @@ def write_query(state: State,anthropic):
         )
     }}
 
-    Retrieve only triplets beginning with "<unstructred namespace>" or <strucutured namespace>
+    Retrieve only triplets beginning with "http://new_test_mission_faqhanahotspots.org/" or "http://flight_database.org/"
     
     Use the following format:
     Question: {input} 
@@ -255,9 +255,9 @@ def setup_structured():
     )
 
     conn = dbapi.connect(
-        user=HANA_ADMIN,
-        password=HANA_ADMIN_PW,
-        address='122ac990-1ac9-4dd0-9f92-94ce5bed0874.hna1.canary-eu10.hanacloud.ondemand.com',
+        user=HANA_USER,
+        password=HANA_PW,
+        address=ADDRESS,
         port=443,
     )
 
