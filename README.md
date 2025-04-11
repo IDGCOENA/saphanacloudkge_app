@@ -23,6 +23,7 @@ pip install -r requirements.txt
 # Change the namespaces
 
 On line 151 in myapp/code.py, add the namespaces you used for structured and unstructured data, so only those are used in retrieval.
+
 ![image](https://github.com/user-attachments/assets/00980fbd-612f-4a93-8f89-10d3fd251ceb)
 
 # Run The Django App
