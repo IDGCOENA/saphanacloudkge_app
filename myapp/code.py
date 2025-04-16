@@ -92,7 +92,7 @@ def setup():
 
     #API Keys and DB Credentials 
     os.environ["AZURE_OPENAI_ENDPOINT"] = "https://sap-openaigpt4.openai.azure.com/"
-    os.environ["AZURE_OPENAI_API_KEY"] = OPEN_AI_KEY
+    os.environ["AZURE_OPENAI_API_KEY"] = AZURE_OPENAI_API_KEY
 
     #set up LLM 
     openAI = AzureChatOpenAI(
