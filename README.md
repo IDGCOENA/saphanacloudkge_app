@@ -15,27 +15,27 @@ HANA_INSTANCE = ""
 # Creating a Virtual Environment
 Creating a virtual environment for Python projects in Visual Studio (including Visual Studio Code) is an essential practice for managing dependencies and ensuring project isolation. Here’s a step-by-step guide:
 
-- Prerequisites
- - Python installed and added to your system PATH.
- - Visual Studio or Visual Studio Code installed, with the Python extension enabled.
+### Prerequisites
+#### Python installed and added to your system PATH.
+#### Visual Studio or Visual Studio Code installed, with the Python extension enabled.
 
-- Open Visual Studio or Visual Studio Code
+### Open Visual Studio or Visual Studio Code
 
 Launch the IDE from your Start menu or desktop shortcut.
 
-- Open or Create Your Project Folder
+### Open or Create Your Project Folder
 
 You can create a new folder for your project and open it in Visual Studio/VS Code.
 
 In VS Code: Use File > Open Folder... and select your project directory.
 
-- Open the Integrated Terminal
+### Open the Integrated Terminal
 
-In Visual Studio: Go to View > Terminal or press `Ctrl + `` to open the terminal pane.
+- In Visual Studio: Go to View > Terminal or press `Ctrl + `` to open the terminal pane.
 
-In VS Code: Go to Terminal > New Terminal from the top menu.
+- In VS Code: Go to Terminal > New Terminal from the top menu.
 
-- Create the Virtual Environment
+### Create the Virtual Environment
 
 In the terminal, run the following command (replace env with your preferred environment name):
 
@@ -44,7 +44,7 @@ python -m venv env
 ```
 This creates a folder named env (or your chosen name) containing the isolated Python environment.
 
-- Activate the Virtual Environment
+### Activate the Virtual Environment
 
 On Windows, run:
 
@@ -58,7 +58,7 @@ source env/bin/activate
 ```
 Once activated, your terminal prompt will be prefixed with the environment name (e.g., (env)).
 
-- Select the Python Interpreter (VS Code Only)
+### Select the Python Interpreter (VS Code Only)
 
 Press Ctrl+Shift+P, type Python: Select Interpreter, and choose the interpreter from your newly created virtual environment (it will be listed with your environment name).
 
