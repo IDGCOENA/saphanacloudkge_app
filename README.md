@@ -16,8 +16,8 @@ HANA_INSTANCE = ""
 Creating a virtual environment for Python projects in Visual Studio (including Visual Studio Code) is an essential practice for managing dependencies and ensuring project isolation. Here’s a step-by-step guide:
 
 ### Prerequisites
-#### Python installed and added to your system PATH.
-#### Visual Studio or Visual Studio Code installed, with the Python extension enabled.
+- Python installed and added to your system PATH.
+- Visual Studio or Visual Studio Code installed, with the Python extension enabled.
 
 ### Open Visual Studio or Visual Studio Code
 
